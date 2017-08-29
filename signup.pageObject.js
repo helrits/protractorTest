@@ -22,8 +22,8 @@ var KabooSignupPageObject = function () {
     var address            = element(by.css('[name="address"]'));
     var postCode           = element(by.css('[name="postalCode"]'));
     var city               = element(by.css('[name="city"]'));
-    var country            = element(by.model('authModel.country'));
-
+    var countryMenu        = element(by.css("div[ta-items=countries]"));
+    var countryAndorra     = countryMenu.all(by.repeater('item in items')).get(1);
 
     this.openSignupPage = function () {
         browser.driver.get(signupUrl);
@@ -105,9 +105,10 @@ var KabooSignupPageObject = function () {
         city.sendKeys(cty);
     };
 
-    this.setCountryAustria = function () {
-        country.click();
-       // browser.sleep(9000);
+    this.setCountry = function () {
+        countryMenu.click();
+        countryAndorra.click();
+        browser.sleep(9000);
     };
 };
 

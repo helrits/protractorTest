@@ -32,7 +32,7 @@ describe('Kaboo signup page - successful signup', function() {
         kabooSignupPageObject.setAddress("Testaddress 1-1");
         kabooSignupPageObject.setPostalCode("12312");
         kabooSignupPageObject.setCity("Tallinn");
-        kabooSignupPageObject.setCountryAustria();
+        kabooSignupPageObject.setCountry();
     });
 
 } );
