@@ -11,7 +11,7 @@ var KabooSignupPageObject = function () {
     var password           = element(by.xpath('.//input[@name=\'password\']'));
     var confirmPassword    = element(by.xpath('.//input[@name=\'passwordRepeat\']'));
     var termsAndConditions = element(by.css("label[for='termsAndConditions']"));
-    var nextButton         = element(by.css('[ng-click="forceValidateFields(formSignup)"]'));
+    var nextButton         = element(by.css('[ng-show="regStep === 1"]'));
 
     var firstname          = element(by.css('[name="firstname"]'));
     var lastname           = element(by.css('[name="lastname"]'));
@@ -29,9 +29,8 @@ var KabooSignupPageObject = function () {
     var phonePrefixMenu    = element(by.css("div[ta-items=phonePrefixes]"));
     var phonePrefix355     = phonePrefixMenu.all(by.repeater('item in items')).get(0);
     var phoneNumber        = element(by.css('[name="phoneNumber"]'));
-    var registerNowButton  = element(by.css('[ng-click="forceValidateFields(formSignup)"]'));
-
-    var emailSent          = element(by.css("div[ng-show=emailSent]"));
+    var registerNowButton  = element(by.css('[ng-show="regStep === 2"]'));
+    var emailSent          = element(by.css('[ng-show="emailSent"]'));
 
     this.openSignupPage = function () {
         browser.driver.get(signupUrl);
@@ -74,7 +73,7 @@ var KabooSignupPageObject = function () {
         nextButton.click();
         browser.waitForAngular();
         browser.getCurrentUrl();
-        browser.sleep(5000);
+        browser.sleep(3000);
     };
 
     this.setFirstname = function (first) {
@@ -127,11 +126,12 @@ var KabooSignupPageObject = function () {
     this.setPhonePrefix = function () {
         phonePrefixMenu.click();
         phonePrefix355.click();
-        browser.sleep(9000);
+        browser.sleep(1000);
     };
 
     this.setPhoneNr = function (phne) {
         phoneNumber.sendKeys(phne);
+        browser.sleep(1000);
     };
 
     this.clickRegisterNowButton = function () {
@@ -143,7 +143,7 @@ var KabooSignupPageObject = function () {
 
     this.emailSentMessageDisplayed = function () {
         expect(emailSent.getText()).toEqual("Email sent");
-        browser.sleep(10000);
+        //browser.sleep(10000);
     };
 
 };
