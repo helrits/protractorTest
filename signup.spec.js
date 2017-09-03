@@ -33,6 +33,17 @@ describe('Kaboo signup page - successful signup', function() {
         kabooSignupPageObject.setPostalCode("12312");
         kabooSignupPageObject.setCity("Tallinn");
         kabooSignupPageObject.setCountry();
+        kabooSignupPageObject.setCurrency();
+        kabooSignupPageObject.setPhonePrefix();
+        kabooSignupPageObject.setPhoneNr("12345678909");
+    });
+
+    it ('should click register now', function() {
+        kabooSignupPageObject.clickRegisterNowButton();
+    });
+
+    it ('should display email sent message', function() {
+        kabooLoginPageObject.emailSentMessageDisplayed();
     });
 
 } );

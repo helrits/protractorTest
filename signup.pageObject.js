@@ -24,6 +24,14 @@ var KabooSignupPageObject = function () {
     var city               = element(by.css('[name="city"]'));
     var countryMenu        = element(by.css("div[ta-items=countries]"));
     var countryAndorra     = countryMenu.all(by.repeater('item in items')).get(1);
+    var currencyMenu       = element(by.css("div[ta-items=currencies]"));
+    var currencyEur        = currencyMenu.all(by.repeater('item in items')).get(0);
+    var phonePrefixMenu    = element(by.css("div[ta-items=phonePrefixes]"));
+    var phonePrefix355     = phonePrefixMenu.all(by.repeater('item in items')).get(0);
+    var phoneNumber        = element(by.css('[name="phoneNumber"]'));
+    var registerNowButton  = element(by.css('[ng-click="forceValidateFields(formSignup)"]'));
+
+    var emailSent          = element(by.css("div[ng-show=emailSent]"));
 
     this.openSignupPage = function () {
         browser.driver.get(signupUrl);
@@ -108,8 +116,36 @@ var KabooSignupPageObject = function () {
     this.setCountry = function () {
         countryMenu.click();
         countryAndorra.click();
+    };
+
+    this.setCurrency = function () {
+        currencyMenu.click();
+        browser.executeScript("arguments[0].scrollIntoView();", currencyEur.getWebElement());
+        currencyEur.click();
+    };
+
+    this.setPhonePrefix = function () {
+        phonePrefixMenu.click();
+        phonePrefix355.click();
         browser.sleep(9000);
     };
+
+    this.setPhoneNr = function (phne) {
+        phoneNumber.sendKeys(phne);
+    };
+
+    this.clickRegisterNowButton = function () {
+        registerNowButton.click();
+        browser.waitForAngular();
+        browser.getCurrentUrl();
+        browser.sleep(5000);
+    };
+
+    this.emailSentMessageDisplayed = function () {
+        expect(emailSent.getText()).toEqual("Email sent");
+        browser.sleep(10000);
+    };
+
 };
 
 module.exports = KabooSignupPageObject;
